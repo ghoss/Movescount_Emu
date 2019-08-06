@@ -58,17 +58,19 @@ function StoreMove($data)
 {
 	$serial = $data['DeviceSerialNumber'];
 	$moveID = $startTime = $data['LocalStartTime'];
+	$db_serial = DB::escape($serial);
+	$db_starttime = DB::escape($starttime);
 	
 	// Write move to database
 	$sql = sprintf("REPLACE INTO moves VALUES ('%s', '%s', '%s', '%s')",
-		DB::escape($serial), DB::escape($moveID), 
-		DB::escape($startTime), DB::escape(json_encode($data))
+		$db_serial, DB::escape($moveID), 
+		$db_starttime, DB::escape(json_encode($data))
 	);
 	DB::exec($sql);
 	
 	// Update last sync timestamp
 	$sql = sprintf("UPDATE settings SET lastSync='%s' WHERE serial='%s'",
-		DB::escape($startTime), DB::escape($serial)
+		$db_starttime, $db_serial
 	);
 	DB::exec($sql);
 	

@@ -31,6 +31,7 @@ Bootstrap::initialize();
 
 // Get serial of watch
 $PATH = Request::get('pathInfo');
+$PARAM = Request::get('param');
 if (isset($PATH[0]))
 {
 	$serial = $PATH[0];
@@ -40,8 +41,20 @@ else
 	trigger_error("Invalid device serial#");
 }
 
-// Display watch settings
+if (isset($PARAM['submit']))
+{
+	// Write changed values into database
+	unset($PARAM['submit']);
+	$settings = json_encode($PARAM);
+	$sql = DB::prepare(
+		"UPDATE settings SET settings=:vSet,serverChange=1 WHERE serial=:vSerial"
+	);
+	DB::bind($sql, ':vSet', $settings);
+	DB::bind($sql, ':vSerial', $serial);
+	DB::execStatement($sql);
+}
 
+// Display current watch settings
 $html = <<<__HTML__
 <!DOCTYPE html>
 <html>
@@ -51,10 +64,29 @@ $html = <<<__HTML__
 </head>
 <body>
 	<h1>MovesCount Emulation Server</h1>
+	<p><b>NOTE:</b> Very limited input validation performed only. Please be mindful of what you enter and change below!</p>
 	<h2>Watch Settings For # $serial</h2>
-	<p>This feature has not been implemented yet. Stay tuned ;)</p>
 __HTML__;
 
+// Retrieve settings from database
+$sql = sprintf("SELECT settings FROM settings WHERE serial='%s'", DB::escape($serial));
+$settings = DB::query($sql, true, false);
+if (! is_null($settings))
+{
+	// Enumerate all fields of setting record
+	$settings = json_decode($settings, true);
+	$html .= "<form method='POST' onsubmit='alert(\"Please synchronize your watch again later to activate the changed settings.\")'><table>";
+	foreach ($settings as $key => $val)
+	{
+		$html .= "<tr><td>$key</td><td><input type='text' name='$key' value='$val' /></td></tr>";
+	}
+	$html .= "</table><p><input type='submit' name='submit' value='Save Settings' /></p></form>";
+}
+else
+{
+	$html .= "<p>Database contains no settings from this device.</p>";
+}
+	
 $html .= <<<__HTML__
 	<footer>
 		<p>Back to <a href="../index.php">Main Menu</a></p>

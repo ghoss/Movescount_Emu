@@ -48,17 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT')
 elseif (isset($ARG['onlychangedsettings']))
 {
 	// Mode B: Return abbreviated settings with waypoints/POIs
-	$data = ReturnSettingsAndWP($serial, $ARG['model'], $ARG['eswversion']);
+	$data = ReturnSettingsAndWP($serial, $ARG['model'], $ARG['eswversion'], false);
 	Output::JSON($data);
 }
 else
 {
 	// Mode C: Return settings, waypoints, and custom groups
-	$data = ReturnSettingsAndWP($serial, $ARG['model'], $ARG['eswversion']);
-	$settings = [];
-	$settings['CustomModeGroups'] = null;
-	$settings['CustomModes'] = null;
-	$data['Settings'] = $settings;
+	$data = ReturnSettingsAndWP($serial, $ARG['model'], $ARG['eswversion'], true);
 	Output::JSON($data);
 }
 
@@ -74,28 +70,43 @@ function StoreSettingsOrWP($serial)
 	// Fetch the data in the PUT request
 	$putdata = file_get_contents('php://input');
 	$data = json_decode($putdata, true);
+	$db_serial = DB::escape($serial);
 	
 	// Create a database entry for the watch serial in case it doesn't exist yet
-	$sql = sprintf("INSERT INTO settings VALUES ('%s', 'null', 'null', 'null', '0')",
-		DB::escape($serial));
+	$sql = sprintf("INSERT INTO settings VALUES ('%s', 'null', 'null', '0')", $db_serial);
 	try	{ DB::exec($sql); } catch (Exception $e) {};
 			
 	if (isset($data['Settings']))
 	{
 		// Store watch settings if supplied
-		$sql = DB::prepare("UPDATE settings SET settings=:vSet WHERE serial=:vSerial");
-		DB::bind($sql, ':vSet', json_encode($data['Settings']));
-		DB::bind($sql, ':vSerial', $serial);
-		DB::execStatement($sql);
+
+		$sql = sprintf("SELECT serverChange FROM settings WHERE serial='%s'", $db_serial);
+		$serverChange = DB::Query($sql, true, false);
+		if ($serverChange == 0)
+		{
+			// Only update settings in database if not changed locally already
+			$sql = DB::prepare(
+				"UPDATE settings SET settings=:vSet WHERE serial=:vSerial"
+			);
+			DB::bind($sql, ':vSet', json_encode($data['Settings']));
+			DB::bind($sql, ':vSerial', $serial);
+			DB::execStatement($sql);
+		}
+		else
+		{
+			// Local update, so ignore data sent from watch; reset flag
+			$sql = sprintf("UPDATE settings SET serverChange=0 WHERE serial='%s'",
+				$db_serial);
+			DB::Exec($sql);
+		}
+
 	}
 	elseif (isset($data['Waypoints']))
 	{
 		// Store watch waypoints/POIs if supplied
 		
 		// Delete all previous waypoints originating from watch
-		$sql = sprintf("DELETE FROM poi WHERE serial='%s' and fromWatch=1",
-			DB::escape($serial)
-		);
+		$sql = sprintf("DELETE FROM poi WHERE serial='%s' and fromWatch=1", $db_serial);
 		DB::exec($sql);
 		
 		// Insert 
@@ -117,7 +128,7 @@ function StoreSettingsOrWP($serial)
 //
 // Retrieve abbreviated settings and waypoints from the database. //---------------------------------------------------------------------------------------
 
-function ReturnSettingsAndWP($serial, $model, $version)
+function ReturnSettingsAndWP($serial, $model, $version, $fullSettings)
 {
 	if (true)
 	{
@@ -133,20 +144,28 @@ function ReturnSettingsAndWP($serial, $model, $version)
 			"RouteURIs" => null,
 			"SelfURI" => "userdevices/$serial",
 			"SerialNumber" => $serial,
-			"Settings" => null,
 			"SubscribedFwReleaseType" => null
 		];
+		$db_serial = DB::escape($serial);
 		
 		// Download last sync date from settings
-		$sql = sprintf("SELECT lastSync FROM settings WHERE serial='%s'",
-			DB::escape($serial));
+		$sql = sprintf(
+			"SELECT lastSync,settings FROM settings WHERE serial='%s'", $db_serial
+		);
 		$row = DB::query($sql, true);
-		$data['LastSynchedMoveStartTime'] = (isset($row) && isset($row['lastSync'])) ?
-			$row['lastSync'] : null;
+		if (isset($row) && isset($row['lastSync']))
+		{
+			$data['LastSynchedMoveStartTime'] = $row['lastSync'];
+			$settings = json_decode($row['settings'], true);
+		}
+		else
+		{
+			$data['LastSynchedMoveStartTime'] = null;
+			$settings = null;
+		}
 		
 		// Download waypoints
-		$sql = sprintf("SELECT * FROM poi WHERE serial='%s'",
-			DB::escape($serial));
+		$sql = sprintf("SELECT * FROM poi WHERE serial='%s'", $db_serial);
 		$rows = DB::query($sql);
 		$pois = [];
 		while ($row = $rows->fetchArray(SQLITE3_ASSOC))
@@ -156,6 +175,18 @@ function ReturnSettingsAndWP($serial, $model, $version)
 			array_push($pois, $rowdata);
 		}
 		$data['POIs'] = $data['Waypoints'] = $pois;
+		
+		// Retrieve full settings if requested
+		if ($fullSettings)
+		{
+			$settings['CustomModeGroups'] = null;
+			$settings['CustomModes'] = null;
+			$data['Settings'] = $settings;
+		}
+		else
+		{
+			$data['Settings'] = null;
+		}
 		
 		return $data;
 	}

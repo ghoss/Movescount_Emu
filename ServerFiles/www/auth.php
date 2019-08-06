@@ -53,7 +53,7 @@ input {
 </head>
 <body>
   <h1>Moveslink Authentication</h1>
-  <form onsubmit="javascript:window.location.replace('movescount://authorized?email=Ambit%40User&userkey=1a2b3c4d-abcd-4567-9876-01a2b3c4d5e6'); return false;">
+  <form onsubmit="window.location.replace('movescount://authorized?email=Ambit%40User&userkey=1a2b3c4d-abcd-4567-9876-01a2b3c4d5e6'); return false;">
     <p>Please click the "Login" button to continue!</p>
     <p><input type="submit" value="Login" /></p>
   </form>

@@ -104,7 +104,7 @@ __HTML__;
 	}
 	if ($count == 0)
 	{
-		$html .= "<p>No moves from this device found ($serial).</p>";
+		$html .= "<p>Database contains no moves from this device.</p>";
 	}
 	else
 	{
