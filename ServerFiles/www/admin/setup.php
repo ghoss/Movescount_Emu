@@ -46,7 +46,8 @@ __HTML__;
 $sql = <<<__SQL__
 CREATE TABLE 'poi' ('serial' TEXT NOT NULL, 'name' TEXT NOT NULL, 'data' TEXT, 'fromWatch' BOOLEAN, PRIMARY KEY ('serial', 'name'));
 CREATE TABLE 'moves' ('serial' TEXT NOT NULL, 'moveId' TEXT NOT NULL, 'startTime' DATETIME, 'data' TEXT, PRIMARY KEY ('serial', 'moveId'));
-CREATE TABLE 'settings' ('serial' TEXT PRIMARY KEY NOT NULL, 'lastSync' DATETIME, 'settings' TEXT, 'customModes' TEXT);
+CREATE TABLE 'custom' ('serial' TEXT NOT NULL, 'modeId' NUMERIC NOT NULL, 'data' TEXT, PRIMARY KEY ('serial', 'modeId'));
+CREATE TABLE 'settings' ('serial' TEXT PRIMARY KEY NOT NULL, 'lastSync' DATETIME, 'settings' TEXT,'serverChange' BOOLEAN);
 __SQL__;
 
 DB::exec($sql);

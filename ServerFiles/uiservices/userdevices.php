@@ -63,7 +63,8 @@ else
 // StoreSettingsOrWP
 //
 // Handle a PUT request from the client which transmits watch settings or waypoints.
-// No HTTP response is generated in either case. //---------------------------------------------------------------------------------------
+// No HTTP response is generated in either case.
+//---------------------------------------------------------------------------------------
 
 function StoreSettingsOrWP($serial)
 {
@@ -126,7 +127,8 @@ function StoreSettingsOrWP($serial)
 //---------------------------------------------------------------------------------------
 // ReturnSettingsAndWP
 //
-// Retrieve abbreviated settings and waypoints from the database. //---------------------------------------------------------------------------------------
+// Retrieve abbreviated settings and waypoints from the database.
+//---------------------------------------------------------------------------------------
 
 function ReturnSettingsAndWP($serial, $model, $version, $fullSettings)
 {
