@@ -1,0 +1,356 @@
+<?php
+//=======================================================================================
+// config-schema
+//
+// Movescount Emulation Project (MEP)
+// Created: 7. August 2019 at 12:03:31 CEST
+//
+// Copyright (c) 2019 by Guido Hoss
+//
+// MEP is free software: you can redistribute it and/or 
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation, either version 3
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public
+// License along with this program.  If not, see
+// <http://www.gnu.org/licenses/>.
+//
+// Git repository home: <https://github.com/ghoss/MEP>
+//=======================================================================================
+
+// Schema definitions for watch settings
+$SETTING_SCHEMA = [
+	"AirPressureUnit" => [
+		"list" => 1,
+		"name" => "Air Pressure Unit",
+		"options" => [
+			"0" => "hPa",
+			"1" => "inHG"
+		]
+	],
+	"AltiBaroMode" => [
+		"list" => 1,
+		"name" => "Profile",
+		"options" => [
+			"0" => "Altimeter",
+			"1" => "Barometer",
+			"2" => "Automatic"
+		]
+	],
+	"AltitudeUnit" => [
+		"list" => 1,
+		"name" => "Altitude Unit",
+		"options" => [
+			"0" => "Metres",
+			"1" => "Feet"
+		]
+	],
+	"AutomaticBikePowerCalibration" => [
+		"list" => 1,
+		"name" => "Automatic Bike Power Calibration",
+		"options" => [
+			"0" => "Off",
+			"1" => "On"
+		]
+	],
+	"BacklightBrightness" => [
+		"list" => 0,
+		"name" => "Backlight Brightness",
+		"unit" => "Percent (0-100)"
+	],	
+	"BacklightMode" => [
+		"list" => 1,
+		"name" => "Backlight Mode",
+		"options" => [
+			"0" => "Normal",
+			"1" => "Off",
+			"2" => "Night",
+			"3" => "Toggle",
+			"4" => "Automatic"
+		]
+	],
+	"BikePODCalibration" => [
+		"list" => 0,
+		"name" => "Bike Pod 1 Calibration",
+		"unit" => "Ratio (Wheel Circumference / 2050mm)"
+	],
+	"BikePODCalibration2" => [
+		"list" => 0,
+		"name" => "Bike Pod 2 Calibration",
+		"unit" => "Ratio (Wheel Circumference / 2050mm)"
+	],
+	"BikePODCalibration3" => [
+		"list" => 0,
+		"name" => "Bike Pod 3 Calibration",
+		"unit" => "Ratio (Wheel Circumference / 2050mm)"
+	],
+	"BirthYear" => [
+		"list" => 0,
+		"name" => "Birth Year",
+		"unit" => "Year (e.g. 1970)"
+	],
+	"CompassDeclination" => [
+		"list" => 1,
+		"name" => "Use Compass Declination",
+		"options" => [
+			"0" => "Off",
+			"1" => "On"
+		]
+	],
+	"CompassUnit" => [
+		"list" => 1,
+		"name" => "Compass Unit",
+		"options" => [
+			"0" => "Degrees",
+			"1" => "Mils"
+		]
+	],
+	"DisplayBrightness" => [
+		"list" => 0,
+		"name" => "Display Brightness",
+		"unit" => "Percent (0-100)"
+	],
+	"DisplayDateMode" => [
+		"list" => 1,
+		"name" => "Date Mode",
+		"options" => [
+			"0" => "DD.MM.",
+			"1" => "MM/DD"
+		]
+	],
+	"DisplayIsNegative" => [
+		"list" => 1,
+		"name" => "Display",
+		"options" => [
+			"0" => "Light",
+			"1" => "Dark"
+		]
+	],
+	"DistanceUnit" => [
+		"list" => 1,
+		"name" => "Distance Unit",
+		"options" => [
+			"0" => "km",
+			"1" => "miles"
+		]
+	],
+	"FitnessLevel" => [
+		"list" => 0,
+		"name" => "Fitness Level",
+		"unit" => "10 (low) to 100 (excellent)"
+	],
+	"FootPODAutoCalibration" => [
+		"list" => 1,
+		"name" => "Foot Pod Auto Calibration",
+		"options" => [
+			"0" => "Off",
+			"1" => "On"
+		]
+	],
+	"FootPODCalibration" => [
+		"list" => 0,
+		"name" => "Foot Pod Calibration Value",
+		"unit" => "Measured Ratio"
+	],
+	"FusedAltiDisabled" => [
+		"list" => 1,
+		"name" => "Fused Alti Mode",
+		"options" => [
+			"0" => "On",
+			"1" => "Off"
+		]
+	],
+	"GPSPositionFormat" => [
+		"list" => 1,
+		"name" => "GPS Position Format",
+		"options" => [
+			"0" => "WGS84 Hd.d° (default)",
+			"1" => "WGS84 Hd°m.m'",
+			"2" => "WGS84 Hd°m's.s",
+			"3" => "UTM",
+			"4" => "MGRS",
+			"5" => "British (BNG)",
+			"6" => "Finnish (ETRS-TM35FIN)",
+			"7" => "Finnish (KKJ)",
+			"8" => "Irish (IG)",
+			"9" => "Swedish (RT90)",
+			"10" => "Swiss (CH1903)",
+			"11" => "UTM - NAD27 Alaska",
+			"12" => "UTM - NAD27 Conus",
+			"13" => "UTM - NAD83",
+			"14" => "New Zealand (NZTM2000)"
+		]
+	],
+	"GPSTimeKeeping" => [
+		"list" => 1,
+		"name" => "GPS Time Keeping",
+		"options" => [
+			"0" => "On",
+			"1" => "Off"
+		]
+	],
+	"HRUnit" => [
+		"list" => 1,
+		"name" => "Heart Rate Unit",
+		"options" => [
+			"0" => "BPM",
+			"1" => "%"
+		]
+	],
+	"Height" => [
+		"list" => 0,
+		"name" => "Height",
+		"unit" => "in cm/ft as selected"
+	],
+	"HeightUnit" => [
+		"list" => 1,
+		"name" => "Height Unit",
+		"options" => [
+			"0" => "cm",
+			"1" => "ft"
+		]
+	],
+	"IsMale" => [
+		"list" => 1,
+		"name" => "Gender",
+		"options" => [
+			"0" => "Female",
+			"1" => "Male"
+		]
+	],
+	"Language" => [
+		"list" => 1,
+		"name" => "Language",
+		"options" => [
+			"1" => "German",
+			"2" => "English",
+			"3" => "Spanish",
+			"4" => "French",
+			"5" => "Italian",
+			"6" => "Dutch",
+			"8" => "Portuguese",
+			"9" => "Suomi",
+			"10" => "Swedish"
+		]
+	],
+	"MaxHR" => [
+		"list" => 0,
+		"name" => "Maximum Heart Rate",
+		"unit" => "in BPM/% as selected"
+	],
+	"NavigationStyle" => [
+		"list" => 1,
+		"name" => "Orientation",
+		"options" => [
+			"0" => "Heading Up",
+			"1" => "North Up"
+		]
+	],
+	"RestHR" => [
+		"list" => 0,
+		"name" => "Rest Heart Rate",
+		"unit" => "in BPM/% as selected"
+	],
+	"SpeedUnit" => [
+		"list" => 1,
+		"name" => "Speed Unit",
+		"options" => [
+			"0" => "Metric",
+			"1" => "Imperial"
+		]
+	],
+	"SportModeButtonLock" => [
+		"list" => 1,
+		"name" => "Button Lock (Sport Mode)",
+		"options" => [
+			"0" => "All Buttons",
+			"1" => "Actions Only"
+		]
+	],
+	"StormAlarming" => [
+		"list" => 1,
+		"name" => "Storm Alarm",
+		"options" => [
+			"0" => "Off",
+			"1" => "On"
+		]
+	],
+	"TemperatureUnit" => [
+		"list" => 1,
+		"name" => "Temperature Unit",
+		"options" => [
+			"0" => "Degrees",
+			"1" => "Fahrenheit"
+		]
+	],
+	"TimeModeButtonLock" => [
+		"list" => 1,
+		"name" => "Button Lock (Time Mode)",
+		"options" => [
+			"0" => "All Buttons",
+			"1" => "Actions Only"
+		]
+	],
+	"TonesMode" => [
+		"list" => 1,
+		"name" => "Tones",
+		"options" => [
+			"0" => "Buttons Off",
+			"1" => "All On",
+			"2" => "All Off"
+		]
+	],
+	"UnitsMode" => [
+		"list" => 1,
+		"name" => "Units Mode",
+		"options" => [
+			"0" => "Metric",
+			"1" => "Imperial"
+		]
+	],
+	"Use24hClock" => [
+		"list" => 1,
+		"name" => "Time Mode",
+		"options" => [
+			"0" => "12h",
+			"1" => "24h"
+		]
+	],
+	"UseTrainingProgram" => [
+		"list" => 1,
+		"name" => "Use Training Program",
+		"options" => [
+			"0" => "Off",
+			"1" => "MovesCount"
+		]
+	],
+	"VerticalSpeedUnit" => [
+		"list" => 1,
+		"name" => "Vertical Speed Unit",
+		"options" => [
+			"0" => "Metric",
+			"1" => "Imperial"
+		]
+	],
+	"Weight" => [
+		"list" => 0,
+		"name" => "Body Weight",
+		"unit" => "in kg/lbs as selected"
+	],
+	"WeightUnit" => [
+		"list" => 1,
+		"name" => "Weight Unit",
+		"options" => [
+			"0" => "kg",
+			"1" => "lbs"
+		]
+	]
+];
+
+?>

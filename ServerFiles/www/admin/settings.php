@@ -29,6 +29,9 @@ require_once('../../config');
 require_once(DIR_SYS . 'Bootstrap.php');
 Bootstrap::initialize();
 
+// Get schema definitions for watch settings
+require_once(DIR_DATA . 'schema-settings');
+
 // Get serial of watch
 $PATH = Request::get('pathInfo');
 $PARAM = Request::get('param');
@@ -78,7 +81,36 @@ if (! is_null($settings))
 	$html .= "<form method='POST' onsubmit='alert(\"Please synchronize your watch again later to activate the changed settings.\")'><table>";
 	foreach ($settings as $key => $val)
 	{
-		$html .= "<tr><td>$key</td><td><input type='text' name='$key' value='$val' /></td></tr>";
+		// Set the field names, values and descriptions for the input form
+		if (isset($SETTING_SCHEMA[$key]))
+		{
+			$schema = $SETTING_SCHEMA[$key];
+			$title = $schema['name'];
+		}
+		else
+		{
+			$title = "$key [???]";
+		}
+		$unit = isset($schema['unit']) ? '['.$schema['unit'].']' : '';
+		
+		$html .= "<tr><td>$title</td><td>";
+		if ($schema['list'] == 0)
+		{
+			// Standard input field
+			$html .= "<input type='text' name='$key' value='$val' size='10' /></td><td>$unit</td></tr>";
+		}
+		else
+		{
+			// Dropdown list
+			$html .= "<select name='$key'>";
+			foreach ($schema['options'] as $opt => $optname)
+			{
+				$selected = ($opt == $val) ? "selected" : "";
+				$html .= "<option value='$opt' $selected>$optname</option>";
+			}
+			$html .= "</select>";
+		}
+		$html .= "</td></tr>";
 	}
 	$html .= "</table><p><input type='submit' name='submit' value='Save Settings' /></p></form>";
 }
