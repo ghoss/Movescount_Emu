@@ -21,7 +21,7 @@
 // License along with this program.  If not, see
 // <http://www.gnu.org/licenses/>.
 //
-// Git repository home: <https://github.com/ghoss/MEP>
+// Git repository home: <https://github.com/ghoss/Movescount_Emu>
 //=======================================================================================
 
 // Register autoloader for MEP classes
@@ -60,7 +60,7 @@ function StoreMove($data)
 	$serial = $data['DeviceSerialNumber'];
 	$moveID = $startTime = $data['LocalStartTime'];
 	$db_serial = DB::escape($serial);
-	$db_starttime = DB::escape($starttime);
+	$db_starttime = DB::escape($startTime);
 	
 	// Write move to database
 	$sql = sprintf("REPLACE INTO moves VALUES ('%s', '%s', '%s', '%s')",

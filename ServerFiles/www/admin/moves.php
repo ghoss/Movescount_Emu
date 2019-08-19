@@ -21,7 +21,7 @@
 // License along with this program.  If not, see
 // <http://www.gnu.org/licenses/>.
 //
-// Git repository home: <https://github.com/ghoss/MEP>
+// Git repository home: <https://github.com/ghoss/Movescount_Emu>
 //=======================================================================================
 
 // Register autoloader for MEP classes

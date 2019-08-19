@@ -1,6 +1,6 @@
 <?php
 //=======================================================================================
-// config-schema
+// schema-settings
 //
 // Movescount Emulation Project (MEP)
 // Created: 7. August 2019 at 12:03:31 CEST
@@ -21,7 +21,7 @@
 // License along with this program.  If not, see
 // <http://www.gnu.org/licenses/>.
 //
-// Git repository home: <https://github.com/ghoss/MEP>
+// Git repository home: <https://github.com/ghoss/Movescount_Emu>
 //=======================================================================================
 
 // Schema definitions for watch settings

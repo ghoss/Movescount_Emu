@@ -1,0 +1,249 @@
+<?php
+//=======================================================================================
+// schema-custom
+//
+// Movescount Emulation Project (MEP)
+// Created: 8. August 2019 at 13:15:22 CEST
+//
+// Copyright (c) 2019 by Guido Hoss
+//
+// MEP is free software: you can redistribute it and/or 
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation, either version 3
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public
+// License along with this program.  If not, see
+// <http://www.gnu.org/licenses/>.
+//
+// Git repository home: <https://github.com/ghoss/Movescount_Emu>
+//=======================================================================================
+
+// Schema definitions for custom modes and displays
+
+$CUSTOM_SCHEMA = [
+	"ActivityID" => [
+		"list" => 1,
+		"name" => "Activity Type",
+		"options" => [
+			"" => "",
+		]
+	],
+	"AltiBaroMode" => [
+		"list" => 1,
+		"name" => "AltiBaro Mode",
+		"options" => [
+			"" => "",
+		]
+	],
+	"AutoPause" => [
+		"list" => 1,
+		"name" => "Auto Pause",
+		"options" => [
+			"" => "",
+		]
+	],
+	"AutoPauseSpeed" => [
+		"list" => 0,
+		"name" => "Auto Pause Speed",
+		"options" => [
+			"" => "",
+		]
+	],
+	"AutoScrolling" => [
+		"list" => 0,
+		"name" => "Auto Scrolling",
+		"options" => [
+			"" => "",
+		]
+	],
+	"AutolapDistance" => [
+		"list" => 0,
+		"name" => "Auto Lap Distance",
+		"options" => [
+			"" => "",
+		]
+	],
+	"BacklightMode" => [
+		"list" => 0,
+		"name" => "Backlight Mode",
+		"options" => [
+			"" => "",
+		]
+	],
+	"DisplayIsNegative" => [
+		"list" => 0,
+		"name" => "Negative Display",
+		"options" => [
+			"" => "",
+		]
+	],
+	"GPSInterval" => [
+		"list" => 0,
+		"name" => "GPS Interval",
+		"options" => [
+			"" => "",
+		]
+	],
+	"HRLimitHigh" => [
+		"list" => 0,
+		"name" => "Upper Heartrate Limit",
+		"options" => [
+			"" => "",
+		]
+	],
+	"HRLimitLow" => [
+		"list" => 0,
+		"name" => "Lower Heartrate Limit",
+		"options" => [
+			"" => "",
+		]
+	],
+	"Interval1Distance" => [
+		"list" => 0,
+		"name" => "Interval Distance 1",
+		"options" => [
+			"" => "",
+		]
+	],
+	"Interval1Time" => [
+		"list" => 0,
+		"name" => "Interval Time 1",
+		"options" => [
+			"" => "",
+		]
+	],
+	"Interval2Distance" => [
+		"list" => 0,
+		"name" => "Interval Distance 2",
+		"options" => [
+			"" => "",
+		]
+	],
+	"Interval2Time" => [
+		"list" => 0,
+		"name" => "Interval Time 2",
+		"options" => [
+			"" => "",
+		]
+	],
+	"IntervalRepetitions" => [
+		"list" => 0,
+		"name" => "Interval Repetitions",
+		"options" => [
+			"" => "",
+		]
+	],
+	"Name" => [
+		"list" => 0,
+		"name" => "Activity Name",
+		"options" => [
+			"" => "",
+		]
+	],
+	"RecordingInterval" => [
+		"list" => 0,
+		"name" => "Recording Interval",
+		"options" => [
+			"" => "",
+		]
+	],
+	"ShowNavigationSelection" => [
+		"list" => 0,
+		"name" => "Show Nav Selection",
+		"options" => [
+			"" => "",
+		]
+	],
+	"TonesMode" => [
+		"list" => 0,
+		"name" => "Tones Mode",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseAccelerometer" => [
+		"list" => 0,
+		"name" => "Use Accelerometer",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseAutolap" => [
+		"list" => 0,
+		"name" => "Use Auto Lap",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseAutomaticLogRecording" => [
+		"list" => 0,
+		"name" => "Use Automatic Log Recording",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseBikePOD" => [
+		"list" => 0,
+		"name" => "Use Bike Pod",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseCadencePOD" => [
+		"list" => 0,
+		"name" => "Use Cadence Pod",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseFootPOD" => [
+		"list" => 0,
+		"name" => "Use Foot Pod",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseHRBelt" => [
+		"list" => 0,
+		"name" => "Use Heart Belt",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseHRLimits" => [
+		"list" => 0,
+		"name" => "Use Heart Rate Limits",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UseIntervals" => [
+		"list" => 0,
+		"name" => "Use Intervals",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UsePODs" => [
+		"list" => 0,
+		"name" => "Use Pods",
+		"options" => [
+			"" => "",
+		]
+	],
+	"UsePowerPOD" => [
+		"list" => 0,
+		"name" => "Use Power Pod",
+		"options" => [
+			"" => "",
+		]
+	]
+];
+
+?>
